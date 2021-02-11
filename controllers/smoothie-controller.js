@@ -25,15 +25,7 @@ const handleErrors = error => {
     return errors
 }
 
-module.exports.register = (req, res) => {
-    res.render('auth/register', { title: 'Registro' })
-}
-
-module.exports.login = (req, res) => {
-    res.render('auth/login', { title: 'Iniciar sesión' })
-}
-
-module.exports.register_post = async (req, res) => {
+module.exports.register = async (req, res) => {
     const { name, email, password } = req.body
 
     try {
@@ -43,7 +35,7 @@ module.exports.register_post = async (req, res) => {
             password
         })
 
-        res.status(200).json(user)
+        res.status(200).json({ user })
     }
     catch (error) {
         const errors = handleErrors(error)
@@ -52,7 +44,7 @@ module.exports.register_post = async (req, res) => {
     }
 }
 
-module.exports.login_post = async (req, res) => {
+module.exports.login = async (req, res) => {
     const { email, password } = req.body
 
     try {
