@@ -1,16 +1,17 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require('cors')
+const auth_routes = require('./routes/auth')
 const cookie_parser = require('cookie-parser')
-
+const { requireAuth } = require('./middleware/auth-middleware');
 const app = express()
-const auth = require('./routes/auth')
 
-// Middlewares & static files
+// Middleware
 app.use(express.static('public'))
-app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 app.use(express.json())
 app.use(cookie_parser())
+
+// View engine
+app.set('view engine', 'ejs');
 
 // Connect to MongoDB & listen for requests
 const db_url = 'mongodb://localhost:27017/node-express-jwt-auth'
@@ -24,4 +25,6 @@ mongoose.connect(db_url, {
 .catch(error => console.log(error))
 
 // Auth routes
-app.use(auth)
+app.get('/', (req, res) => res.render('home'));
+app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
+app.use(auth_routes);

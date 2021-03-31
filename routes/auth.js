@@ -1,9 +1,10 @@
 const { Router } = require('express')
 const router = Router()
-const smoothie_controller = require('../controllers/smoothie-controller')
+const auth_controller = require('../controllers/auth-controller')
 
-router.post('/register', smoothie_controller.register)
-router.post('/login', smoothie_controller.login)
-router.post('/check', smoothie_controller.check)
+router.get('/signup', auth_controller.signup)
+router.get('/signin', auth_controller.signin)
+router.post('/register', auth_controller.register)
+router.post('/login', auth_controller.login)
 
 module.exports = router

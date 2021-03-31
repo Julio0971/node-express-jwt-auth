@@ -40,10 +40,19 @@ const handleErrors = error => {
 const max_age = 3 * 24 * 60 * 60
 
 // Create a jwt token
-const createToken = (id) => {
+const createToken = id => {
     return jwt.sign({ id }, 'api secret', {
         expiresIn: max_age
     })
+}
+
+// Controller actions
+module.exports.signup = (req, res) => {
+    res.render('signup');
+}
+
+module.exports.signin = (req, res) => {
+    res.render('signin');
 }
 
 module.exports.register = async (req, res) => {
@@ -54,12 +63,12 @@ module.exports.register = async (req, res) => {
         const token = createToken(user.id)
 
         res.cookie('jwt', token, { httpOnly: true, maxAge: max_age * 1000 })
-        res.status(200).json({ message: 'Registro exitoso' })
+        res.status(200).json({ user: user.id })
     }
     catch (error) {
         const errors = handleErrors(error)
         
-        res.status(422).json({ errors })
+        res.status(400).json({ errors })
     }
 }
 
@@ -70,31 +79,12 @@ module.exports.login = async (req, res) => {
         const user = await User.login(email, password)
         const token = createToken(user.id)
 
-        // res.cookie('jwt', token, { httpOnly: true, maxAge: max_age * 1000 })
-        res.status(200).json({ message: 'Login exitoso', token })
+        res.cookie('jwt', token, { httpOnly: true, maxAge: max_age * 1000 })
+        res.status(200).json({ user: user.id })
     }
     catch (error) {
         const errors = handleErrors(error)
         
-        res.status(422).json({ errors })
-    }
-}
-
-module.exports.check = async (req, res) => {
-    const token = req.body.token
-
-    if (token) {
-        jwt.verify(token, 'api secret', (error, decoded_token) => {
-            if (error) {
-                console.log(decoded_token)
-                res.status(403).json({ message: error.message })
-            }
-            else {
-                res.status(200).json({ auth: true })
-            }
-        })
-    }
-    else {
-        res.status(403).json({ auth: false })
+        res.status(400).json({ errors })
     }
 }
