@@ -1,23 +1,31 @@
 <%- include('partials/header'); -%>
 
-<header>
-    <div class="smoothie">
-        <img src="/smoothie.png" alt="">
-    </div>
-    
-    <div class="headings">
-        <h2>
-            Smoothie Recipes
-        </h2>
+<section class="section is-medium">
+    <div class="container">
+        <div class="columns is-vcentered">
+            <div class="column is-one-fifth">
+                <figure class="media-left">
+                    <img src="/smoothie.png" alt="">
+                </figure>
+            </div>
 
-        <h3>
-            By Julio
-        </h3>
+            <div class="column is-three-fifths">
+                <h1 class="title is-1 is-spaced">
+                    Recetas de smoothies
+                </h1>
 
-        <a href="/smoothies" class="btn">
-            View Recipes
-        </a>
+                <h3 class="subtitle is-3 mb-5">
+                    By Julio
+                </h3>
+
+                <a class="button is-warning is-rounded" href="/smoothies">
+                    <strong>
+                        VER RECETAS
+                    </strong>
+                </a>
+            </div>
+        </div>
     </div>
-</header>
+</section>
 
 <%- include('partials/footer'); -%>

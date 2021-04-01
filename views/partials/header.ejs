@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,37 +8,54 @@
         Node + Express + JWT
     </title>
 
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/app.css">
 </head>
+
 <body>
-    <nav>
-        <h1>
-            <a href="/">
+    <nav class="navbar is-spaced">
+        <div class="navbar-brand">
+            <a class="navbar-item subtitle mb-0" href="/">
                 Smoothies
             </a>
-        </h1>
-        
-        <ul>
-            <% if (user) { %>
-                <li>
-                    Welcome, <%= user.email %>
-                </li>
-                <li>
-                    <a href="/logout">
-                        Log out
-                    </a>
-                </li>
-            <% } else { %>
-                <li>
-                    <a href="/signin">
-                        Sign in
-                    </a>
-                </li>
-                <li>
-                    <a href="/signup" class="btn">
-                        Sign up
-                    </a>
-                </li>
-            <% } %>
-        </ul>
+
+            <a class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <% if (user) { %>
+                    <div class="navbar-item">
+                        Bienvenido, <%= user.name %>
+                    </div>
+
+                    <div class="navbar-item">
+                        <a class="button is-ghost has-text-black" href="/logout">
+                            <strong>
+                                SALIR
+                            </strong>
+                        </a>
+                    </div>
+                <% } else { %>
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-ghost has-text-black" href="/signin">
+                                <strong>
+                                    LOGIN
+                                </strong>
+                            </a>
+    
+                            <a class="button is-warning is-rounded" href="/signup">
+                                <strong>
+                                    REGISTRO
+                                </strong>
+                            </a>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
     </nav>
